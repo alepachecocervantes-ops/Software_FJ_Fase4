@@ -33,7 +33,7 @@ El grupo organizará las tareas mediante Issues, desarrollará los cambios en ra
 7. Integrantes
    
 - Integrante 1: Alejandra Paola Pacheco Cervantes.
-- Integrante 2: pendiente de confirmar.
+- Integrante 2: Elvis Albeiro Carrascal Garcia.
 - Integrante 3: pendiente de confirmar.
 - Integrante 4: pendiente de confirmar.
 - Integrante 5: pendiente de confirmar.
