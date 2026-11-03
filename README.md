@@ -34,7 +34,7 @@ El grupo organizará las tareas mediante Issues, desarrollará los cambios en ra
    
 - Integrante 1: Alejandra Paola Pacheco Cervantes.
 - Integrante 2: Elvis Albeiro Carrascal Garcia.
-- Integrante 3: Robert Tony Chamorro Rivero.
+- Integrante 3: Robert Tony Chamorro Rivero. "Usuario GitHub: Rotdtd"
 - Integrante 4: pendiente de confirmar.
 - Integrante 5: pendiente de confirmar.
 
