@@ -88,6 +88,3 @@ Las instrucciones de ejecución se completarán cuando el programa esté integra
 10. Estado del proyecto
 
 Estructura inicial y distribución de responsabilidades definidas. El sistema se desarrollará, integrará y probará progresivamente durante la Fase 4.
-
-Estructura inicial en preparación. El sistema se desarrollará y probará progresivamente durante la Fase 4.
-
