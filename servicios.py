@@ -144,7 +144,7 @@ class AlquilerEquipo(Servicio):
     @property
     def costo_adicional(self):
         return self.__costo_adicional
-    # Implementación compatible con el módulo de reservas.
+    # Implementación compatible con el módulo de reservas Alejandra
     def calcular_costo(self, duracion, impuesto=0, descuento=0):
         duracion = self._validar_numero(
             duracion, "La duración", permitir_cero=False
