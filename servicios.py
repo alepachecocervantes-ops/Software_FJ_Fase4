@@ -165,3 +165,48 @@ class AlquilerEquipo(Servicio):
             f"Disponibles: {self.cantidad_disponible} | "
             f"Precio por hora: ${self.precio_base:.2f}"
         )
+
+class AsesoriaEspecializada(Servicio):
+    """Servicio de asesoría profesional especializada."""
+
+    def __init__(
+        self, nombre, descripcion, precio_base,
+        especialidad, modalidad="Virtual"
+    ):
+        super().__init__(nombre, descripcion, precio_base)
+
+        if not isinstance(especialidad, str) or not especialidad.strip():
+            raise ValueError("La especialidad es obligatoria.")
+
+        modalidades = ("Virtual", "Presencial")
+
+        if modalidad not in modalidades:
+            raise ValueError(
+                "La modalidad debe ser Virtual o Presencial."
+            )
+
+        self.__especialidad = especialidad.strip()
+        self.__modalidad = modalidad
+
+    @property
+    def especialidad(self):
+        return self.__especialidad
+
+    @property
+    def modalidad(self):
+        return self.__modalidad
+
+    def calcular_costo(self, duracion, impuesto=0, descuento=0):
+        duracion = self._validar_numero(
+            duracion, "La duración", permitir_cero=False
+        )
+        subtotal = self.precio_base * duracion
+        return self._calcular_total(subtotal, impuesto, descuento)
+
+    def describir(self):
+        return (
+            f"Asesoría: {self.nombre} | "
+            f"Especialidad: {self.especialidad} | "
+            f"Modalidad: {self.modalidad} | "
+            f"Precio por hora: ${self.precio_base:.2f}"
+        )
