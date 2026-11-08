@@ -81,3 +81,36 @@ class Servicio(ABC):
     def __str__(self):
         return f"{self.nombre}: {self.descripcion}"
 
+class ServicioSala(Servicio):
+    """Servicio de reserva y alquiler de salas."""
+
+    def __init__(self, nombre, descripcion, precio_base, capacidad):
+        super().__init__(nombre, descripcion, precio_base)
+
+        if (
+            isinstance(capacidad, bool)
+            or not isinstance(capacidad, int)
+            or capacidad <= 0
+        ):
+            raise ValueError("La capacidad debe ser un entero positivo.")
+
+        self.__capacidad = capacidad
+
+    @property
+    def capacidad(self):
+        return self.__capacidad
+
+    def calcular_costo(self, duracion, impuesto=0, descuento=0):
+        duracion = self._validar_numero(
+            duracion, "La duración", permitir_cero=False
+        )
+        subtotal = self.precio_base * duracion
+        return self._calcular_total(subtotal, impuesto, descuento)
+
+    def describir(self):
+        return (
+            f"Sala: {self.nombre} | "
+            f"Capacidad: {self.capacidad} personas | "
+            f"Precio por hora: ${self.precio_base:.2f}"
+        )
+
