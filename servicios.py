@@ -114,3 +114,54 @@ class ServicioSala(Servicio):
             f"Precio por hora: ${self.precio_base:.2f}"
         )
 
+class AlquilerEquipo(Servicio):
+    """Servicio de alquiler de equipos."""
+
+    def __init__(
+        self, nombre, descripcion, precio_base,
+        cantidad_disponible, costo_adicional=0
+    ):
+        super().__init__(nombre, descripcion, precio_base)
+
+        if (
+            isinstance(cantidad_disponible, bool)
+            or not isinstance(cantidad_disponible, int)
+            or cantidad_disponible < 0
+        ):
+            raise ValueError(
+                "La cantidad disponible debe ser un entero no negativo."
+            )
+
+        self.__cantidad_disponible = cantidad_disponible
+        self.__costo_adicional = self._validar_numero(
+            costo_adicional, "El costo adicional"
+        )
+
+    @property
+    def cantidad_disponible(self):
+        return self.__cantidad_disponible
+
+    @property
+    def costo_adicional(self):
+        return self.__costo_adicional
+# Implementación compatible con el módulo de reservas.
+    def calcular_costo(self, duracion, impuesto=0, descuento=0):
+        duracion = self._validar_numero(
+            duracion, "La duración", permitir_cero=False
+        )
+
+        if self.__cantidad_disponible < 1:
+        raise ValueError("No hay equipos disponibles.")
+
+        subtotal = (
+            self.precio_base * duracion
+        ) + self.costo_adicional
+
+        return self._calcular_total(subtotal, impuesto, descuento)
+
+    def describir(self):
+        return (
+            f"Equipo: {self.nombre} | "
+            f"Disponibles: {self.cantidad_disponible} | "
+            f"Precio por hora: ${self.precio_base:.2f}"
+        )
