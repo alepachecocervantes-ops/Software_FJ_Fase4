@@ -73,17 +73,19 @@ La integración de `main.py`, las pruebas de funcionamiento y la documentación 
 
 ## 7. Organización del trabajo colaborativo
 
-El equipo utilizará GitHub para organizar y dar seguimiento al desarrollo del proyecto mediante Issues.
+El equipo utiliza GitHub para organizar y dar seguimiento al desarrollo del proyecto mediante Issues, ramas individuales, commits y Pull Requests.
 
-Cada integrante trabajará en una rama independiente, realizará commits descriptivos y enviará Pull Requests hacia la rama `main` para revisar e integrar sus contribuciones.
+Cada integrante trabaja en una rama independiente, de acuerdo con las responsabilidades asignadas. Los cambios se presentan mediante Pull Requests hacia la rama principal `main`, donde se revisan antes de su integración.
 
-Actualmente, los módulos desarrollados cuentan con los siguientes Pull Requests abiertos:
+Durante el desarrollo se han realizado diferentes Pull Requests correspondientes a la implementación, actualización y corrección de los módulos de clientes, servicios, reservas y excepciones.
 
-- **Pull Request #9:** Entidades y gestión de clientes, desarrollado por Elvis.
-- **Pull Request #10:** Gestión de servicios, desarrollado por Robert.
-- **Pull Request #11:** Actualización del módulo de reservas, con mejoras de herencia, validaciones y manejo de errores, desarrollado por Alejandra.
+Actualmente, el Pull Request #12, correspondiente al módulo de excepciones personalizadas y registros, permanece abierto y en proceso de corrección.
 
-Los Pull Requests permanecerán abiertos mientras se espera la retroalimentación del tutor. Posteriormente, se realizarán las correcciones necesarias antes de integrar los cambios a la rama principal.
+El historial completo de contribuciones, incluyendo los Pull Requests abiertos, cerrados y fusionados, puede consultarse en el repositorio.
+
+Adicionalmente, se han realizado pruebas locales de integración mediante `main.py`, con diez operaciones que incluyen casos válidos e inválidos, manejo de excepciones y registro de eventos.
+
+La integración definitiva del sistema se verificará una vez que los módulos actualizados sean compatibles entre sí.
 
 ## 8. Almacenamiento de información
 
