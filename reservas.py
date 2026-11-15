@@ -4,7 +4,7 @@ import math
 from entidades import Entidad
 from clientes import Cliente
 from servicios import Servicio
-
+from excepciones import ErrorDatosReserva, ErrorEstadoReserva, ErrorProcesamientoReserva
 
 logger = logging.getLogger(__name__)
 
@@ -21,10 +21,10 @@ class Reserva(Entidad):
 
     def __init__(self, cliente, servicio, duracion):
         if not isinstance(cliente, Cliente):
-            raise ValueError("La reserva debe tener un cliente válido de tipo Cliente.")
+            raise ErrorDatosReserva("El cliente debe ser de tipo Cliente.")
 
         if not isinstance(servicio, Servicio):
-            raise ValueError("La reserva debe tener un servicio válido de tipo Servicio.")
+            raise ErrorDatosReserva("El servicio debe ser de tipo Servicio.")
 
         if (
             isinstance(duracion, bool)
@@ -32,7 +32,7 @@ class Reserva(Entidad):
             or not math.isfinite(duracion)
             or duracion <= 0
         ):
-            raise ValueError("La duración debe ser un número finito mayor que cero.")
+            raise ErrorDatosReserva("La duración debe ser un número finito mayor que cero.")
 
         self.__id = Reserva.__contador
         Reserva.__contador += 1
@@ -66,8 +66,7 @@ class Reserva(Entidad):
     def confirmar(self):
         """Confirma únicamente una reserva pendiente."""
         if self.__estado != self.PENDIENTE:
-            logger.error("No se puede confirmar la reserva %s en estado %s.", self.__id, self.__estado)
-            raise RuntimeError("Solo se pueden confirmar reservas pendientes.")
+            raise ErrorEstadoReserva(self.__estado)
 
         self.__estado = self.CONFIRMADA
         logger.info("Reserva %s confirmada.", self.__id)
@@ -76,8 +75,7 @@ class Reserva(Entidad):
     def cancelar(self):
         """Cancela una reserva pendiente o confirmada."""
         if self.__estado not in (self.PENDIENTE, self.CONFIRMADA):
-            logger.error("No se puede cancelar la reserva %s en estado %s.", self.__id, self.__estado)
-            raise RuntimeError("No se puede cancelar una reserva ya cancelada o procesada.")
+            raise ErrorEstadoReserva(self.__estado)
 
         self.__estado = self.CANCELADA
         logger.info("Reserva %s cancelada.", self.__id)
@@ -86,8 +84,7 @@ class Reserva(Entidad):
     def procesar(self, impuesto=0, descuento=0):
         """Procesa una reserva confirmada y devuelve el costo calculado."""
         if self.__estado != self.CONFIRMADA:
-            logger.error("No se puede procesar la reserva %s en estado %s.", self.__id, self.__estado)
-            raise RuntimeError("Solo se pueden procesar reservas confirmadas.")
+            raise ErrorEstadoReserva(self.__estado)
 
         try:
             costo = self.__servicio.calcular_costo(
@@ -105,9 +102,8 @@ class Reserva(Entidad):
                 raise ValueError("El servicio devolvió un costo inválido.")
 
         except Exception as error:
-            logger.exception("Error al procesar la reserva %s.", self.__id)
-            raise RuntimeError(
-                f"No fue posible procesar la reserva {self.__id}."
+            raise ErrorProcesamientoReserva(
+                f"No fue posible procesar la reserva {self.__id}: {error}"
             ) from error
         else:
             self.__estado = self.PROCESADA
