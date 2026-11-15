@@ -1,0 +1,24 @@
+2026-11-15 09:23:56 | INFO | ==================================================
+2026-11-15 09:23:56 | INFO | Sistema de registro iniciado correctamente
+2026-11-15 09:23:56 | INFO | Iniciando prueba del sistema
+2026-11-15 09:23:56 | ERROR | ErrorDatosReserva: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:23:57 | WARNING | Se manejó la excepción: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:23:57 | INFO | Prueba finalizada
+2026-11-15 09:23:57 | ERROR | ErrorDatosReserva: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:23:57 | ERROR | ErrorCalculoCosto: Error al calcular el costo del servicio: No se pudo calcular el costo del servicio
+2026-11-15 09:30:26 | INFO | ==================================================
+2026-11-15 09:30:26 | INFO | Sistema de registro iniciado correctamente
+2026-11-15 09:30:26 | INFO | Iniciando prueba del sistema
+2026-11-15 09:30:26 | ERROR | ErrorDatosReserva: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:30:26 | WARNING | Se manejó la excepción: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:30:26 | INFO | Prueba finalizada
+2026-11-15 09:30:26 | ERROR | ErrorDatosReserva: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:30:26 | ERROR | ErrorCalculoCosto: Error al calcular el costo del servicio: No se pudo calcular el costo del servicio
+2026-11-15 09:36:11 | INFO | ==================================================
+2026-11-15 09:36:11 | INFO | Sistema de registro iniciado correctamente
+2026-11-15 09:36:11 | INFO | Iniciando prueba del sistema
+2026-11-15 09:36:11 | ERROR | ErrorDatosReserva: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:36:11 | WARNING | Se manejó la excepción: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:36:11 | INFO | Prueba finalizada
+2026-11-15 09:36:11 | ERROR | ErrorDatosReserva: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-15 09:36:11 | ERROR | ErrorCalculoCosto: Error al calcular el costo del servicio: No se pudo calcular el costo del servicio
