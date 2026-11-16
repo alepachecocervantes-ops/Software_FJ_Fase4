@@ -6,7 +6,7 @@
 # Objetivo: Definir excepciones personalizadas y sistema de registro
 
 
-# llamamos los modulos que permiten el registros de mensajes, fechas y horas. 
+# llamamos los modulos que permiten el registros de mensajes, fechas y horas.
 import logging
 from datetime import datetime
 
@@ -26,7 +26,7 @@ def configurar_logging():
         filename='software_fj.log',  # Nombre del archivo donde se guardará todo
         filemode='a'  # 'a' = agregar al final del archivo, no sobrescribir
     )
-    
+
     # Mensaje de confirmación en el registro
     logging.info("=" * 50)
     logging.info("Sistema de registro iniciado correctamente")
@@ -210,16 +210,17 @@ class ErrorOpcionInvalida(ErrorValidacion):
 #===========================================================
 #Bloques de pruebas(verificar que el programa si se ejecuta)
 
+if __name__ == "__main__":
     try:
         registrar_info("Iniciando prueba del sistema")
-        
+
         # Simular un error
         raise ErrorDatosReserva("Rodolfo Hernandes")
-        
+
     except ErrorDatosReserva as e:
         print(f"⚠️ Mensaje del error: {e}")
         registrar_advertencia(f"Se manejó la excepción: {e}")
-    
+
     finally:
         registrar_info("Prueba finalizada")
         print("✅ Revisa el archivo 'software_fj.log' para ver el registro de las pruebas")
