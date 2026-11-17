@@ -1,28 +1,58 @@
-# Importamos las herramientas necesarias para trabajar
-# con clases abstractas y operaciones matemáticas.
+# Importamos las herramientas necesarias
 from abc import ABC, abstractmethod
 import math
+
+# Importamos las excepciones personalizadas de Software FJ
+from excepciones import (
+    ErrorDatosServicio,
+    ErrorDuracion,
+    ErrorServicioNoDisponible,
+    ErrorDisponibilidad,
+    ErrorModalidad,
+    ErrorCalculoCosto,
+    ErrorCapacidad
+)
+
 
 class Servicio(ABC):
     """
     Clase abstracta que representa un servicio
     ofrecido por Software FJ.
     """
+
     def __init__(self, nombre, descripcion, precio_base):
+
         if not isinstance(nombre, str) or not nombre.strip():
-            raise ValueError("El nombre del servicio es obligatorio.")
+            raise ErrorDatosServicio(
+                "El nombre del servicio es obligatorio."
+            )
 
         if not isinstance(descripcion, str) or not descripcion.strip():
-            raise ValueError("La descripción es obligatoria.")
+            raise ErrorDatosServicio(
+                "La descripción es obligatoria."
+            )
 
         self.__nombre = nombre.strip()
         self.__descripcion = descripcion.strip()
+
         self.__precio_base = self._validar_numero(
-            precio_base, "El precio base", permitir_cero=False
+            precio_base,
+            "El precio base",
+            permitir_cero=False
         )
 
     @staticmethod
-    def _validar_numero(valor, mensaje, permitir_cero=True):
+    def _validar_numero(
+        valor,
+        mensaje,
+        permitir_cero=True,
+        tipo_error=ErrorDatosServicio
+    ):
+        """
+        Valida que un valor sea numérico, finito y no negativo.
+        Permite seleccionar la excepción correspondiente.
+        """
+
         if (
             isinstance(valor, bool)
             or not isinstance(valor, (int, float))
@@ -30,12 +60,18 @@ class Servicio(ABC):
             or valor < 0
             or (not permitir_cero and valor == 0)
         ):
-            raise ValueError(
+            if tipo_error == ErrorDuracion:
+                raise ErrorDuracion(valor)
+
+            raise tipo_error(
                 f"{mensaje} debe ser un número válido "
-                "mayor que cero."
-                if not permitir_cero
-                else f"{mensaje} debe ser un número igual o mayor que cero."
+                + (
+                    "mayor que cero."
+                    if not permitir_cero
+                    else "igual o mayor que cero."
+                )
             )
+
         return float(valor)
 
     @property
@@ -61,15 +97,24 @@ class Servicio(ABC):
         pass
 
     def _calcular_total(self, subtotal, impuesto=0, descuento=0):
+        """
+        Calcula el costo final aplicando impuesto y descuento.
+        """
+
         impuesto = self._validar_numero(
-            impuesto, "El impuesto"
+            impuesto,
+            "El impuesto",
+            tipo_error=ErrorCalculoCosto
         )
+
         descuento = self._validar_numero(
-            descuento, "El descuento"
+            descuento,
+            "El descuento",
+            tipo_error=ErrorCalculoCosto
         )
 
         if impuesto > 100 or descuento > 100:
-            raise ValueError(
+            raise ErrorCalculoCosto(
                 "El impuesto y el descuento no pueden superar el 100 %."
             )
 
@@ -81,10 +126,12 @@ class Servicio(ABC):
     def __str__(self):
         return f"{self.nombre}: {self.descripcion}"
 
+
 class ServicioSala(Servicio):
     """Servicio de reserva y alquiler de salas."""
 
     def __init__(self, nombre, descripcion, precio_base, capacidad):
+
         super().__init__(nombre, descripcion, precio_base)
 
         if (
@@ -92,7 +139,7 @@ class ServicioSala(Servicio):
             or not isinstance(capacidad, int)
             or capacidad <= 0
         ):
-            raise ValueError("La capacidad debe ser un entero positivo.")
+            raise ErrorCapacidad(capacidad)
 
         self.__capacidad = capacidad
 
@@ -101,11 +148,21 @@ class ServicioSala(Servicio):
         return self.__capacidad
 
     def calcular_costo(self, duracion, impuesto=0, descuento=0):
+
         duracion = self._validar_numero(
-            duracion, "La duración", permitir_cero=False
+            duracion,
+            "La duración",
+            permitir_cero=False,
+            tipo_error=ErrorDuracion
         )
+
         subtotal = self.precio_base * duracion
-        return self._calcular_total(subtotal, impuesto, descuento)
+
+        return self._calcular_total(
+            subtotal,
+            impuesto,
+            descuento
+        )
 
     def describir(self):
         return (
@@ -114,13 +171,19 @@ class ServicioSala(Servicio):
             f"Precio por hora: ${self.precio_base:.2f}"
         )
 
+
 class AlquilerEquipo(Servicio):
     """Servicio de alquiler de equipos."""
 
     def __init__(
-        self, nombre, descripcion, precio_base,
-        cantidad_disponible, costo_adicional=0
+        self,
+        nombre,
+        descripcion,
+        precio_base,
+        cantidad_disponible,
+        costo_adicional=0
     ):
+
         super().__init__(nombre, descripcion, precio_base)
 
         if (
@@ -128,13 +191,13 @@ class AlquilerEquipo(Servicio):
             or not isinstance(cantidad_disponible, int)
             or cantidad_disponible < 0
         ):
-            raise ValueError(
-                "La cantidad disponible debe ser un entero no negativo."
-            )
+            raise ErrorDisponibilidad(cantidad_disponible)
 
         self.__cantidad_disponible = cantidad_disponible
+
         self.__costo_adicional = self._validar_numero(
-            costo_adicional, "El costo adicional"
+            costo_adicional,
+            "El costo adicional"
         )
 
     @property
@@ -144,20 +207,32 @@ class AlquilerEquipo(Servicio):
     @property
     def costo_adicional(self):
         return self.__costo_adicional
-    # Implementación compatible con el módulo de reservas Alejandra
+
     def calcular_costo(self, duracion, impuesto=0, descuento=0):
+        """
+        Calcula el costo del alquiler de equipos.
+        Compatible con el módulo reservas.py.
+        """
+
         duracion = self._validar_numero(
-            duracion, "La duración", permitir_cero=False
+            duracion,
+            "La duración",
+            permitir_cero=False,
+            tipo_error=ErrorDuracion
         )
 
         if self.__cantidad_disponible < 1:
-            raise ValueError("No hay equipos disponibles.")
+            raise ErrorServicioNoDisponible(self.nombre)
 
         subtotal = (
             self.precio_base * duracion
         ) + self.costo_adicional
 
-        return self._calcular_total(subtotal, impuesto, descuento)
+        return self._calcular_total(
+            subtotal,
+            impuesto,
+            descuento
+        )
 
     def describir(self):
         return (
@@ -166,24 +241,30 @@ class AlquilerEquipo(Servicio):
             f"Precio por hora: ${self.precio_base:.2f}"
         )
 
+
 class AsesoriaEspecializada(Servicio):
     """Servicio de asesoría profesional especializada."""
 
     def __init__(
-        self, nombre, descripcion, precio_base,
-        especialidad, modalidad="Virtual"
+        self,
+        nombre,
+        descripcion,
+        precio_base,
+        especialidad,
+        modalidad="Virtual"
     ):
+
         super().__init__(nombre, descripcion, precio_base)
 
         if not isinstance(especialidad, str) or not especialidad.strip():
-            raise ValueError("La especialidad es obligatoria.")
+            raise ErrorDatosServicio(
+                "La especialidad es obligatoria."
+            )
 
         modalidades = ("Virtual", "Presencial")
 
-        if modalidad not in modalidades:
-            raise ValueError(
-                "La modalidad debe ser Virtual o Presencial."
-            )
+        if not isinstance(modalidad, str) or modalidad not in modalidades:
+            raise ErrorModalidad(modalidad)
 
         self.__especialidad = especialidad.strip()
         self.__modalidad = modalidad
@@ -197,11 +278,21 @@ class AsesoriaEspecializada(Servicio):
         return self.__modalidad
 
     def calcular_costo(self, duracion, impuesto=0, descuento=0):
+
         duracion = self._validar_numero(
-            duracion, "La duración", permitir_cero=False
+            duracion,
+            "La duración",
+            permitir_cero=False,
+            tipo_error=ErrorDuracion
         )
+
         subtotal = self.precio_base * duracion
-        return self._calcular_total(subtotal, impuesto, descuento)
+
+        return self._calcular_total(
+            subtotal,
+            impuesto,
+            descuento
+        )
 
     def describir(self):
         return (
