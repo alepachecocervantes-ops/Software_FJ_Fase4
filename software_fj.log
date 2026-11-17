@@ -22,3 +22,19 @@
 2026-11-15 09:36:11 | INFO | Prueba finalizada
 2026-11-15 09:36:11 | ERROR | ErrorDatosReserva: Datos de la reserva inválidos: Rodolfo Hernandes
 2026-11-15 09:36:11 | ERROR | ErrorCalculoCosto: Error al calcular el costo del servicio: No se pudo calcular el costo del servicio
+2026-11-16 19:15:34 | INFO | ==================================================
+2026-11-16 19:15:34 | INFO | Sistema de registro iniciado correctamente
+2026-11-16 19:15:34 | INFO | Iniciando prueba del sistema
+2026-11-16 19:15:34 | ERROR | Operación: Creación de ErrorDatosReserva | Error: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-16 19:15:34 | WARNING | Se manejó la excepción: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-16 19:15:34 | INFO | Prueba finalizada
+2026-11-16 19:15:34 | ERROR | Operación: Creación de ErrorDatosReserva | Error: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-16 19:15:34 | ERROR | Operación: Creación de ErrorCalculoCosto | Error: Error al calcular el costo del servicio: No se pudo calcular el costo del servicio
+2026-11-16 19:17:01 | INFO | ==================================================
+2026-11-16 19:17:01 | INFO | Sistema de registro iniciado correctamente
+2026-11-16 19:17:01 | INFO | Iniciando prueba del sistema
+2026-11-16 19:17:01 | ERROR | Operación: Creación de ErrorDatosReserva | Error: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-16 19:17:01 | WARNING | Se manejó la excepción: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-16 19:17:01 | INFO | Prueba finalizada
+2026-11-16 19:17:01 | ERROR | Operación: Creación de ErrorDatosReserva | Error: Datos de la reserva inválidos: Rodolfo Hernandes
+2026-11-16 19:17:01 | ERROR | Operación: Creación de ErrorCalculoCosto | Error: Error al calcular el costo del servicio: No se pudo calcular el costo del servicio

@@ -204,12 +204,13 @@ class ErrorEntradaInvalida(ErrorValidacion):
 class ErrorOpcionInvalida(ErrorValidacion):
     """Se lanza cuando se selecciona una opción que no está en el menú"""
     def __init__(self, opcion, rango_valido):
-        self.mensaje = f"La opción '{opcion}' no es válida. Por favor elige un valor entre {rango_valido}"
+        self.mensaje = f"La opción {opcion} no es válida. Por favor elige un valor entre {rango_valido}"
         super().__init__(self.mensaje)
 
 #===========================================================
 #Bloques de pruebas(verificar que el programa si se ejecuta)
 
+if __name__ == "__main__":
     try:
         registrar_info("Iniciando prueba del sistema")
         
