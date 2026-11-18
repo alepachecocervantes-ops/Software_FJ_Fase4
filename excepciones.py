@@ -61,7 +61,7 @@ def registrar_depuracion(mensaje):
 # ----------------------
 # Excepción base del sistema
 # ----------------------
-class SoftwareFJError(ValueError):
+class SoftwareFJError(Exception):
     """Excepción base para todos los errores del sistema Software FJ"""
     def __init__(self, mensaje="Error en el sistema Software FJ"):
         self.mensaje = mensaje
@@ -218,12 +218,14 @@ if __name__ == "__main__":
         raise ErrorDatosReserva("Rodolfo Hernandes")
 
     except ErrorDatosReserva as e:
-        print(f"⚠️ Mensaje del error: {e}")
+        print(f"Mensaje del error: {e}")
         registrar_advertencia(f"Se manejó la excepción: {e}")
+        registrar_error(e, "Prueba de ErrorDatosReserva")
+    
 
     finally:
         registrar_info("Prueba finalizada")
-        print("✅ Revisa el archivo 'software_fj.log' para ver el registro de las pruebas")
+        print("Revisa el archivo 'software_fj.log' para ver el registro de las pruebas")
 
 #-------------------------
 #Prueba de valueError
@@ -232,10 +234,12 @@ if __name__ == "__main__":
     try:
         raise ErrorDatosReserva("Rodolfo Hernandes")
     except ValueError as e:
-        print(f"✅ {type(e).__name__} se capturó como ValueError: {e}")
+        print(f"{type(e).__name__} se capturo como ValueError: {e}")
+        registrar_error(e, "Prueba de reconocimiento como ValueError")
 
     print("\nProbando la excepción ErrorCalculoCosto...")
     try:
         raise ErrorCalculoCosto("No se pudo calcular el costo del servicio")
     except ErrorCalculoCosto as e:
-        print(f"⚠️ Mensaje del error: {e}")
+        print(f"Mensaje del error: {e}")
+        registrar_error(e, "Prueba de ErrorCalculoCosto")
