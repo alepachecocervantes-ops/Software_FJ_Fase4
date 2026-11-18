@@ -1,13 +1,10 @@
 import logging
 
 from entidades import Entidad
+from excepciones import ErrorCliente
 
 
 logger = logging.getLogger(__name__)
-
-
-class ErrorCliente(ValueError):
-    pass
     
 
 
