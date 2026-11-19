@@ -5,3 +5,6 @@ __pycache__/
 # Entornos virtuales
 venv/
 .venv/
+
+# Archivos de registro
+software_fj.log
