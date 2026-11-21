@@ -30,7 +30,7 @@ El sistema está organizado en archivos independientes que permiten separar las 
 
 | Archivo | Función |
 |---|---|
-| `main.py` | Integra los módulos y ejecuta las diez operaciones simuladas del sistema. |
+| `main.py` | Integra los módulos y ejecuta las catorce operaciones simuladas del sistema. |
 | `entidades.py` | Define la clase abstracta `Entidad`, utilizada como base para otras clases. |
 | `clientes.py` | Implementa la gestión de clientes, sus validaciones y operaciones principales. |
 | `servicios.py` | Define la clase abstracta `Servicio` y las clases especializadas para los servicios ofrecidos. |
@@ -153,13 +153,13 @@ En Windows, también puede utilizarse:
 py main.py
 ```
 
-El programa ejecuta automáticamente las diez operaciones simuladas y muestra sus resultados en la terminal.
+El programa ejecuta automáticamente las catorce operaciones simuladas y muestra sus resultados en la terminal.
 
 Los eventos y errores generados se registran en `software_fj.log`.
 
 ## 10. Simulación de operaciones
 
-El archivo `main.py` integra las funcionalidades de los módulos y ejecuta diez operaciones para verificar el comportamiento del sistema.
+El archivo `main.py` integra las funcionalidades de los módulos y ejecuta catorce operaciones para verificar el comportamiento del sistema.
 
 ### Operaciones válidas
 
@@ -180,6 +180,10 @@ El archivo `main.py` integra las funcionalidades de los módulos y ejecuta diez 
 | 8 | Registrar un cliente con nombre vacío | Se controla el error de validación del nombre. |
 | 9 | Crear un servicio con precio negativo | Se rechaza el precio inválido mediante una excepción. |
 | 10 | Procesar una reserva cancelada | Se controla el error relacionado con el estado de la reserva. |
+| 11 | 	Registrar un cliente duplicado | Se controla ErrorClienteDuplicado al repetir un identificador. |
+| 12 | Calcular costo con duración negativa | Se controla ErrorDuracion al ingresar una duración de -2. |
+| 13 | 	Crear una sala con capacidad cero | Se controla ErrorCapacidad al indicar una capacidad inválida de 0. |
+| 14 | Alquilar un equipo sin disponibilidad | Se controla ErrorServicioNoDisponible al intentar calcular el alquiler sin unidades disponibles. |
 
 Estas operaciones permiten comprobar tanto el funcionamiento normal del sistema como su capacidad para identificar y controlar situaciones incorrectas.
 
@@ -209,14 +213,14 @@ Se realizaron pruebas locales del programa principal utilizando las versiones ac
 La ejecución de `py main.py` permitió comprobar:
 
 - Siete operaciones válidas completadas correctamente.
-- Tres operaciones inválidas detectadas y controladas.
+- Siete operaciones inválidas detectadas y controladas.
 - Integración funcional entre los módulos utilizados en las simulaciones.
 - Cálculo del costo de una reserva procesada.
 - Registro de los resultados de las operaciones en `software_fj.log`.
 
 En la prueba de procesamiento de reserva se obtuvo un costo total de **$100.000**, correspondiente al servicio de sala utilizado durante dos horas.
 
-También se verificó que los errores de nombre vacío, precio negativo y procesamiento de una reserva cancelada quedaran registrados con nivel `ERROR`.
+También se verificó que los errores de nombre vacío, precio negativo, procesamiento de una reserva cancelada, cliente duplicado, duración negativa, capacidad cero y equipo sin disponibilidad quedaran registrados con nivel `ERROR`.
 
 Estas pruebas permiten evidenciar el funcionamiento de las diez simulaciones requeridas para la actividad.
 
@@ -224,7 +228,7 @@ Estas pruebas permiten evidenciar el funcionamiento de las diez simulaciones req
 
 **Estado: módulos desarrollados e integración principal probada localmente.**
 
-El sistema cuenta con los módulos de entidades, clientes, servicios, reservas y excepciones, además del programa principal encargado de ejecutar las diez operaciones.
+El sistema cuenta con los módulos de entidades, clientes, servicios, reservas y excepciones, además del programa principal encargado de ejecutar las catorce operaciones.
 
 Las pruebas locales realizadas permitieron comprobar el funcionamiento de las simulaciones y el registro de los errores previstos.
 
