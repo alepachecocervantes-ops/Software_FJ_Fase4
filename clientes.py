@@ -1,7 +1,7 @@
 import logging
 
 from entidades import Entidad
-from excepciones import ErrorCliente
+from excepciones import ErrorCliente, ErrorClienteDuplicado
 
 
 logger = logging.getLogger(__name__)
@@ -51,7 +51,7 @@ class RegistroClientes:
         for existente in self.__clientes:
             if existente.identificador == cliente.identificador:
                 logger.error("Intento de registrar un identificador duplicado.")
-                raise ErrorCliente("Ya existe un cliente con ese identificador.")
+                raise ErrorClienteDuplicado(cliente.nombre)
         self.__clientes.append(cliente)
         logger.info("Cliente registrado correctamente.")
         return cliente

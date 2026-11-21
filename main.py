@@ -3,12 +3,15 @@ import logging
 from clientes import Cliente, RegistroClientes
 from servicios import ServicioSala, AlquilerEquipo
 from reservas import Reserva
-
 from excepciones import (
     ErrorCliente,
     ErrorServicio,
     ErrorReserva,
-    ErrorEstadoReserva
+    ErrorEstadoReserva,
+    ErrorClienteDuplicado,
+    ErrorDuracion,
+    ErrorCapacidad,
+    ErrorServicioNoDisponible
 )
 
 def main():
@@ -258,9 +261,90 @@ def main():
     else:
         print("ADVERTENCIA: Se procesó una reserva cancelada.")
         logging.warning("Operación 10: Se procesó una reserva cancelada.")
-
+        
     finally:
         print("Operación 10 finalizada.")
+
+    # OPERACIÓN 11: Intentar registrar un cliente duplicado
+    print("\nOPERACIÓN 11: Registrar cliente duplicado")
+
+    try:
+        if registro is None:
+            raise ErrorCliente("No existe un registro de clientes para la prueba.")
+
+        registro.registrar(Cliente("Ana Martínez", "12345"))
+
+    except ErrorClienteDuplicado as error:
+        print(f"Error controlado (ErrorClienteDuplicado): {error}")
+        logging.error("Operación 11: %s", error)
+
+    else:
+        print("ADVERTENCIA: Se permitió registrar un cliente duplicado.")
+        logging.warning("Operación 11: Se aceptó un cliente duplicado.")
+
+    finally:
+        print("Operación 11 finalizada.")
+
+    # OPERACIÓN 12: Intentar calcular el costo con duración negativa
+    print("\nOPERACIÓN 12: Calcular costo con duración negativa")
+
+    try:
+        if servicio is None:
+            raise ErrorServicio("No existe una sala para la prueba.")
+
+        servicio.calcular_costo(-2)
+
+    except ErrorDuracion as error:
+        print(f"Error controlado (ErrorDuracion): {error}")
+        logging.error("Operación 12: %s", error)
+
+    else:
+        print("ADVERTENCIA: Se aceptó una duración negativa.")
+        logging.warning("Operación 12: Se aceptó una duración negativa.")
+
+    finally:
+        print("Operación 12 finalizada.")
+
+    # OPERACIÓN 13: Intentar crear una sala con capacidad inválida
+    print("\nOPERACIÓN 13: Crear sala con capacidad cero")
+
+    try:
+        ServicioSala("Sala C", "Sala de reuniones", 40000, 0)
+
+    except ErrorCapacidad as error:
+        print(f"Error controlado (ErrorCapacidad): {error}")
+        logging.error("Operación 13: %s", error)
+
+    else:
+        print("ADVERTENCIA: Se aceptó una capacidad inválida.")
+        logging.warning("Operación 13: Se aceptó una capacidad inválida.")
+
+    finally:
+        print("Operación 13 finalizada.")
+
+    # OPERACIÓN 14: Intentar alquilar un equipo sin unidades disponibles
+    print("\nOPERACIÓN 14: Alquilar equipo no disponible")
+
+    try:
+        equipo_agotado = AlquilerEquipo(
+            "Proyector agotado",
+            "Equipo sin existencias",
+            30000,
+            0
+        )
+
+        equipo_agotado.calcular_costo(1)
+
+    except ErrorServicioNoDisponible as error:
+        print(f"Error controlado (ErrorServicioNoDisponible): {error}")
+        logging.error("Operación 14: %s", error)
+
+    else:
+        print("ADVERTENCIA: Se permitió alquilar un equipo no disponible.")
+        logging.warning("Operación 14: Se aceptó un servicio no disponible.")
+
+    finally:
+        print("Operación 14 finalizada.")
 
 if __name__ == "__main__":
     main()
